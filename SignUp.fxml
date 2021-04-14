@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #191970;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.SignupController">
+   <children>
+      <TextField fx:id="tfName" layoutX="87.0" layoutY="75.0" prefHeight="26.0" prefWidth="226.0" promptText="Enter Your Name" />
+      <TextField fx:id="tfUserName" layoutX="86.0" layoutY="121.0" prefHeight="26.0" prefWidth="226.0" promptText="Enter Your Username" />
+      <PasswordField fx:id="pfPassword" layoutX="87.0" layoutY="173.0" prefHeight="26.0" prefWidth="226.0" promptText="Enter Your Password" />
+      <TextField fx:id="tfNumber" layoutX="87.0" layoutY="220.0" prefHeight="26.0" prefWidth="226.0" promptText="Enter Your Phone Number" />
+      <Button fx:id="btnSignUp" layoutX="120.0" layoutY="300.0" mnemonicParsing="false" onAction="#SignUpAction" prefHeight="26.0" prefWidth="159.0" text="Sign Up" />
+      <Button fx:id="btnLogin" layoutX="255.0" layoutY="23.0" mnemonicParsing="false" onAction="#LoginAction" prefHeight="26.0" prefWidth="116.0" text="Log In" />
+      <Label fx:id="lblregister" alignment="CENTER" layoutX="89.0" layoutY="267.0" prefHeight="18.0" prefWidth="226.0" textFill="WHITE" />
+   </children>
+</AnchorPane>
