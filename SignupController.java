@@ -32,7 +32,7 @@ public class SignupController implements Initializable {
     private PasswordField pfPassword;
 
     @FXML
-    private TextField tfNumber;
+    protected TextField tfDailyCalorie;
 
     @FXML
     private Button btnSignUp;
@@ -56,7 +56,7 @@ public class SignupController implements Initializable {
         tfName.setStyle("-fx-text-inner-color: #000000;");
         tfUserName.setStyle("-fx-text-inner-color: #000000;");
         pfPassword.setStyle("-fx-text-inner-color: #000000;");
-        tfNumber.setStyle("-fx-text-inner-color: #000000;");
+        tfDailyCalorie.setStyle("-fx-text-inner-color: #000000;");
 
 
 
@@ -64,20 +64,18 @@ public class SignupController implements Initializable {
     @FXML
     public void SignUpAction(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        if(tfName.getText().isBlank() == false && tfUserName.getText().isBlank() == false && pfPassword.getText().isBlank() == false && tfNumber.getText().isBlank() == false) {
+        if(tfName.getText().isBlank() == false && tfUserName.getText().isBlank() == false && pfPassword.getText().isBlank() == false && tfDailyCalorie.getText().isBlank() == false) {
             registerUser();
+            PauseTransition pt = new PauseTransition();
+            pt.setDuration(Duration.seconds(2));
+            pt.setOnFinished(e1 -> {
+                System.out.print("SignUp Successful");
+            });
+            pt.play();
 
         }else{
             lblregister.setText("Please enter all fields above.");
         }
-
-        PauseTransition pt = new PauseTransition();
-        pt.setDuration(Duration.seconds(2));
-        pt.setOnFinished(e1 -> {
-            System.out.print("SignUp Successful");
-        });
-        pt.play();
-
     }
     public void registerUser() throws SQLException, ClassNotFoundException {
 
@@ -87,10 +85,10 @@ public class SignupController implements Initializable {
         String name = tfName.getText();
         String username = tfUserName.getText();
         String password = pfPassword.getText();
-        String number = tfNumber.getText();
+        String dailycal = tfDailyCalorie.getText();
 
-        String insertparameters = "INSERT INTO users(names, username, password, number) VALUES ('";
-        String insertvalues = name + "','" + username + "','" + password + "','" + number + "')";
+        String insertparameters = "INSERT INTO users(names, username, password, dailycalories) VALUES ('";
+        String insertvalues = name + "','" + username + "','" + password + "','" + dailycal + "')";
         String insertToregister = insertparameters + insertvalues;
 
 

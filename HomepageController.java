@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -9,12 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Duration;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
@@ -78,6 +77,32 @@ public class HomepageController implements Initializable {
     private DBHandler handler;
     private ResultSet rs;
 
+    @FXML
+    private TextField tfCalorieGoal;
+
+    @FXML
+    private TextField tfCalorieFood;
+
+    @FXML
+    private TextField tfServing;
+
+    @FXML
+    private Button btnSubtract;
+
+    @FXML
+    private Label lblNewgoal;
+
+    @FXML
+    private Button btnRefresh;
+
+    private String holder;
+
+    @FXML
+    private Button btnAddition;
+
+    @FXML
+    private TextField tfCalExercise;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -85,6 +110,8 @@ public class HomepageController implements Initializable {
         tfheightininches.setStyle("-fx-text-inner-color: #000000;");
         tfweight.setStyle("-fx-text-inner-color: #000000;");
         tfSearch.setStyle("-fx-text-inner-color: #000000;");
+        tfCalorieGoal.setStyle("-fx-text-inner-color: #000000;");
+        tfCalExercise.setStyle("-fx-text-inner-color: #000000;");
 
         datePicker.setValue(LocalDate.now());
 
@@ -93,11 +120,12 @@ public class HomepageController implements Initializable {
         Calories.setCellValueFactory(new PropertyValueFactory<>("calories"));
         Servingsize.setCellValueFactory(new PropertyValueFactory<>("servingsize"));
 
+
     }
 
     public void getBMIcalculator(ActionEvent event) {
 
-        if(tfheightinfeet.getText().isBlank() == false && tfheightininches.getText().isBlank() == false&& tfweight.getText().isBlank() == false) {
+        if(tfheightinfeet.getText().isBlank() == false && tfheightininches.getText().isBlank() == false && tfweight.getText().isBlank() == false) {
             double totalheight;
             int feet = Integer.parseInt(tfheightinfeet.getText());
             int inches = Integer.parseInt(tfheightininches.getText());
@@ -134,6 +162,7 @@ public class HomepageController implements Initializable {
                 data.add(new FoodList(rs.getString("categories"), rs.getString("names"), rs.getString("calories"), rs.getString("servingsize")));
             }
             tableview.setItems(data);
+
         }
     }
     private void loadFoodDatabase() throws SQLException, ClassNotFoundException {
@@ -150,12 +179,75 @@ public class HomepageController implements Initializable {
     private void addLog(ActionEvent event) throws NullPointerException{
         if(tfDescription.getText().isBlank()) {
             descriptionmessage.setText("Log Failed. Please try again.");
-//            list.add(new LocalEvent(datePicker.getValue(), tfDescription.getText()));
         }else{
             descriptionmessage.setText("");
             list.add(new LocalEvent(datePicker.getValue(), tfDescription.getText()));
             eventLog.setItems(list);
-//            list.clear();
         }
     }
+
+    @FXML
+    private void subtractcalories(ActionEvent event) {
+        if(tfCalorieGoal.getText().isBlank() == false && tfCalorieFood.getText().isBlank() == false && tfServing.getText().isBlank() == false) {
+
+            int thegoal = Integer.parseInt(tfCalorieGoal.getText());
+            int calsperfood = Integer.parseInt(tfCalorieFood.getText());
+            int servingsz = Integer.parseInt(tfServing.getText());
+            int newgoal = thegoal - (calsperfood * servingsz);
+
+            holder = tfCalorieGoal.getText();
+            lblNewgoal.setText(String.valueOf(newgoal)+" remaining");
+            PauseTransition pt = new PauseTransition();
+            pt.setDuration(Duration.seconds(2));
+
+            pt.setOnFinished(ev -> {
+                tfCalorieGoal.setText(String.valueOf(newgoal));
+                tfCalorieFood.clear();
+                tfServing.clear();
+                lblNewgoal.setText("");
+            });
+            pt.play();
+
+        }else{
+            lblNewgoal.setText("");
+        }
+
+    }
+    @FXML
+    private void refreshcalories(ActionEvent event) {
+        if(tfCalorieGoal.getText().isBlank()){
+            tfCalorieGoal.clear();
+
+        }else{
+
+            tfCalorieGoal.setText(holder);
+        }
+    }
+
+    @FXML
+    private void btnAddin(ActionEvent event) {
+
+        if(tfCalorieGoal.getText().isBlank() == false && tfCalExercise.getText().isBlank() == false) {
+            int thegoal = Integer.parseInt(tfCalorieGoal.getText());
+            int calexercise = Integer.parseInt(tfCalExercise.getText());
+            int newgoal = thegoal + calexercise;
+            lblNewgoal.setText(String.valueOf(newgoal) + " remaining");
+
+            PauseTransition pt = new PauseTransition();
+            pt.setDuration(Duration.seconds(2));
+            pt.setOnFinished(ev -> {
+                tfCalorieGoal.setText(String.valueOf(newgoal));
+                tfCalExercise.clear();
+                lblNewgoal.setText("");
+            });
+            pt.play();
+
+        }else{
+            lblNewgoal.setText("");
+        }
+
+
+    }
+
+
 }

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -85,7 +86,47 @@
                   </Pane>
                </content>
             </Tab>
-          <Tab text="Health and Nutrition Log">
+            <Tab text="Calorie Goal &amp; Intake">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="33.0" layoutY="31.0" prefHeight="35.0" prefWidth="202.0" text="Daily Calorie Goal:" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfCalorieFood" alignment="CENTER" layoutX="297.0" layoutY="95.0" prefHeight="26.0" prefWidth="154.0" promptText="Calories per food item" />
+                        <TextField fx:id="tfServing" alignment="CENTER" layoutX="297.0" layoutY="153.0" prefHeight="26.0" prefWidth="154.0" promptText="How many servings?" />
+                        <Label layoutX="48.0" layoutY="94.0" prefHeight="27.0" prefWidth="172.0" text="Enter Calorie Amount" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="86.0" layoutY="153.0" text="Serving Size" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Separator layoutX="243.0" layoutY="305.0" prefHeight="6.0" prefWidth="262.0" />
+                        <Button fx:id="btnSubtract" layoutX="206.0" layoutY="179.0" mnemonicParsing="false" onAction="#subtractcalories" prefHeight="26.0" prefWidth="73.0" text="SUBTRACT" />
+                        <Label fx:id="lblNewgoal" alignment="CENTER" layoutX="233.0" layoutY="320.0" prefHeight="35.0" prefWidth="282.0" textFill="WHITE">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Button fx:id="btnRefresh" layoutX="479.0" layoutY="35.0" mnemonicParsing="false" onAction="#refreshcalories" prefHeight="26.0" prefWidth="106.0" text="REFRESH" />
+                        <TextField fx:id="tfCalorieGoal" alignment="CENTER" layoutX="297.0" layoutY="35.0" prefHeight="26.0" prefWidth="154.0" promptText="Calorie Goal avg:2000" />
+                        <Button fx:id="btnAddition" layoutX="206.0" layoutY="265.0" mnemonicParsing="false" onAction="#btnAddin" prefHeight="26.0" prefWidth="73.0" text="ADD" />
+                        <Label alignment="CENTER" layoutX="29.0" layoutY="227.0" prefHeight="27.0" prefWidth="210.0" text="Excerise Calorie Amount" textFill="WHITE">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="tfCalExercise" alignment="CENTER" layoutX="297.0" layoutY="227.0" prefHeight="26.0" prefWidth="154.0" promptText="Calories for exercise" />
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+          <Tab text="Health &amp; Nutrition Log">
                <content>
                   <SplitPane dividerPositions="0.16233766233766234" orientation="VERTICAL">
                      <items>
